@@ -64,15 +64,15 @@ def check_total():  # all the different winning situations, changes bet total ac
         print("blackjack")
         bet_total += 1.5 * bet  # blackjack returns 3:2 of initial bet 
         play_again()
-    elif dealer > 21 and player_bust:
-        print("you lose, bet lost")
-        bet_total -= bet
-        play_again()
-    elif dealer > 21 and not player_bust:
+    elif dealer > 21 and player_bust:  # if dealer busts and player doesn't (regardless of score), then player wins 
         print("you win")
         bet_total += bet
         play_again()
-    elif 17 <= dealer <= 21:
+    elif dealer > 21 and not player_bust:  # if both dealer and player busts, then player loses
+        print("you lose, bet lost")
+        bet_total -= bet
+        play_again()
+    elif 17 <= dealer <= 21:  
         if dealer > total:
             print("you lose, bet lost ")
             bet_total -= bet
