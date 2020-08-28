@@ -1,7 +1,7 @@
 from random import sample
 from itertools import chain
 
-NUM_OF_DECKS = 7  # the number of card decks affects the frequencies of cards that can come up
+NUM_OF_DECKS = 7  # the number of card decks affects the frequencies of cards that can come up given you know what has already been played 
 
 card_values = {"A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6,
                "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10}
@@ -10,7 +10,7 @@ card_deck = {"A": 4 * NUM_OF_DECKS, "2": 4 * NUM_OF_DECKS, "3": 4 * NUM_OF_DECKS
              "5": 4 * NUM_OF_DECKS, "6": 4 * NUM_OF_DECKS, "7": 4 * NUM_OF_DECKS,
              "8": 4 * NUM_OF_DECKS, "9": 4 * NUM_OF_DECKS, "10": 4 * NUM_OF_DECKS,
              "J": 4 * NUM_OF_DECKS, "Q": 4 * NUM_OF_DECKS, "K": 4 * NUM_OF_DECKS
-             }
+             }  # we have 4 * NUM_OF_DECKS as the value for each card since in each deck there are 4 suits of cards
 
 total = 0  # player and dealer running score
 dealer = 0
@@ -27,7 +27,7 @@ def sort_deck(deck: dict):
     for key in deck:
         card.append([key] * 4)
     flatten = list(chain.from_iterable(card))
-    shuffled = sample(flatten, len(flatten))  # shuffle returns none.
+    shuffled = sample(flatten, len(flatten))  # shuffles the entire deck 
     return shuffled
 
 
@@ -62,7 +62,7 @@ def check_total():  # all the different winning situations, changes bet total ac
         play_again()
     elif total == 21:
         print("blackjack")
-        bet_total += 1.5 * bet
+        bet_total += 1.5 * bet  # blackjack returns 3:2 of initial bet 
         play_again()
     elif dealer > 21 and player_bust:
         print("you lose, bet lost")
@@ -97,8 +97,8 @@ def draw_card(deck):  # picks the top card from the deck
         print("total: ", total)
         check_total()  # scores are analyzed after card is drawn
         draw_card(deck)
-    elif ans == "stay" and dealer < 17:
-        while dealer < 17:
+    elif ans == "stay" and dealer < 17:  
+        while dealer < 17:  # if the player stays then the dealer draws until they have a score greater than or equal to 17. 
             dealer += card_values[check_shuffle(deck)[0]]
             print("card:", check_shuffle(deck)[0])
             print("dealer total: ", dealer)
